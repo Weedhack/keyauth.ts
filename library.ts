@@ -204,4 +204,14 @@ export class KeyAuthSeller {
   async unbanKey(key: string): Promise<KeyAuthResponse> {
     return this.makeRequest('unban', { key });
   }
+
+  // Pause a subscription
+  async pauseSubscription(subscription: string): Promise<KeyAuthResponse> {
+    return this.makeRequest('pausesub', { subscription });
+  }
+
+  // Unpause a subscription
+  async unpauseSubscription(subscription: string): Promise<KeyAuthResponse> {
+    return this.makeRequest('unpausesub', { subscription });
+  }
 } 

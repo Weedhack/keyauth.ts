@@ -88,6 +88,27 @@ async function banUnbanOperations() {
     }
 }
 
+// Example 6: Subscription management
+async function manageSubscription() {
+    try {
+        // Pause a subscription
+        console.log('Pausing subscription...');
+        let response = await keyAuth.pauseSubscription('subscription-name');
+        console.log('Subscription pause result:', response);
+
+        // Wait a moment before unpausing (in a real scenario)
+        console.log('Waiting before unpausing...');
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        // Unpause the subscription
+        console.log('Unpausing subscription...');
+        response = await keyAuth.unpauseSubscription('subscription-name');
+        console.log('Subscription unpause result:', response);
+    } catch (error) {
+        console.error('Error managing subscription:', error);
+    }
+}
+
 // Run all examples
 async function runExamples() {
     console.log('Getting user information...');
@@ -104,6 +125,9 @@ async function runExamples() {
 
     console.log('\nPerforming ban/unban operations...');
     await banUnbanOperations();
+
+    console.log('\nManaging subscription...');
+    await manageSubscription();
 }
 
 // Execute the examples
