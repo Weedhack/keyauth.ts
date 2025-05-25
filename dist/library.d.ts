@@ -81,5 +81,7 @@ export declare class KeyAuthSeller {
     getUserKey(user: string): Promise<KeyAuthResponse>;
     unbanUser(user: string): Promise<KeyAuthResponse>;
     unbanKey(key: string): Promise<KeyAuthResponse>;
+    pauseSubscription(subscription: string): Promise<KeyAuthResponse>;
+    unpauseSubscription(subscription: string): Promise<KeyAuthResponse>;
 }
 export {};

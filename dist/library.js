@@ -118,5 +118,13 @@ class KeyAuthSeller {
     async unbanKey(key) {
         return this.makeRequest('unban', { key });
     }
+    // Pause a subscription
+    async pauseSubscription(subscription) {
+        return this.makeRequest('pausesub', { subscription });
+    }
+    // Unpause a subscription
+    async unpauseSubscription(subscription) {
+        return this.makeRequest('unpausesub', { subscription });
+    }
 }
 exports.KeyAuthSeller = KeyAuthSeller;
