@@ -5,11 +5,8 @@ A TypeScript library for interacting with the KeyAuth seller API.
 ## Installation
 
 ```bash
-# From npm
-npm install keyauth-seller
-
 # From GitHub
-npm install github:yourusername/keyauth-seller
+npm install github:weedhack/keyauth.ts
 ```
 
 ## Usage
