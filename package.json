@@ -1,6 +1,6 @@
 {
   "name": "keyauth-seller",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "TypeScript library for KeyAuth seller API",
   "main": "dist/library.js",
   "types": "dist/library.d.ts",
@@ -30,8 +30,7 @@
   },
   "homepage": "https://github.com/Weedhack/keyauth.ts#readme",
   "dependencies": {
-    "axios": "^1.6.7",
-    "keyauth-seller": "github:weedhack/keyauth.ts#main"
+    "axios": "^1.6.7"
   },
   "devDependencies": {
     "typescript": "^5.3.3",
