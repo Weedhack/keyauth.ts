@@ -1,0 +1,37 @@
+{
+  "name": "keyauth-seller",
+  "version": "1.0.0",
+  "description": "TypeScript library for KeyAuth seller API",
+  "main": "dist/library.js",
+  "types": "dist/library.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/keyauth-seller.git"
+  },
+  "keywords": [
+    "keyauth",
+    "api",
+    "seller",
+    "license"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Weedhack/keyauth.ts/issues"
+  },
+  "homepage": "https://github.com/Weedhack/keyauth.ts#readme",
+  "dependencies": {
+    "axios": "^1.6.7"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/node": "^20.11.16"
+  }
+}
