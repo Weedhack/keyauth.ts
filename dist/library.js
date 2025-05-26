@@ -126,5 +126,23 @@ class KeyAuthSeller {
     async unpauseSubscription(subscription) {
         return this.makeRequest('unpausesub', { subscription });
     }
+    // Subtract time from user's subscription
+    async subtractTime({ user, sub, seconds }) {
+        return this.makeRequest('subtract', { user, sub, seconds });
+    }
+    // Delete user's subscription
+    async deleteSubscription({ user, sub }) {
+        return this.makeRequest('delsub', { user, sub });
+    }
+    // Add to blacklist (IP, HWID, region, country, or ASN)
+    async addToBlacklist(params) {
+        // Filter out undefined parameters
+        const blacklistParams = Object.fromEntries(Object.entries(params).filter(([_, value]) => value !== undefined));
+        return this.makeRequest('black', blacklistParams);
+    }
+    // Remove from blacklist (IP or HWID)
+    async removeFromBlacklist({ data, blacktype }) {
+        return this.makeRequest('delblack', { data, blacktype });
+    }
 }
 exports.KeyAuthSeller = KeyAuthSeller;

@@ -53,6 +53,28 @@ interface ExtendParams {
     expiry: string;
     activeOnly?: boolean;
 }
+interface SubtractTimeParams {
+    user: string;
+    sub: string;
+    seconds: string;
+}
+interface DeleteSubParams {
+    user: string;
+    sub: string;
+}
+interface BlacklistParams {
+    ip?: string;
+    hwid?: string;
+    region?: string;
+    country?: string;
+    asn?: string;
+    reason?: string;
+}
+type BlacklistType = 'IP' | 'HWID';
+interface RemoveFromBlacklistParams {
+    data: string;
+    blacktype: BlacklistType;
+}
 export declare class KeyAuthSeller {
     private readonly sellerKey;
     private readonly baseUrl;
@@ -83,5 +105,9 @@ export declare class KeyAuthSeller {
     unbanKey(key: string): Promise<KeyAuthResponse>;
     pauseSubscription(subscription: string): Promise<KeyAuthResponse>;
     unpauseSubscription(subscription: string): Promise<KeyAuthResponse>;
+    subtractTime({ user, sub, seconds }: SubtractTimeParams): Promise<KeyAuthResponse>;
+    deleteSubscription({ user, sub }: DeleteSubParams): Promise<KeyAuthResponse>;
+    addToBlacklist(params: BlacklistParams): Promise<KeyAuthResponse>;
+    removeFromBlacklist({ data, blacktype }: RemoveFromBlacklistParams): Promise<KeyAuthResponse>;
 }
 export {};
