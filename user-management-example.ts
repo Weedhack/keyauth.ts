@@ -109,6 +109,93 @@ async function manageSubscription() {
     }
 }
 
+// Example 7: Time management
+async function manageSubscriptionTime() {
+    try {
+        // Subtract time from subscription
+        console.log('Subtracting time from subscription...');
+        const response = await keyAuth.subtractTime({
+            user: 'username',
+            sub: 'subscription-name',
+            seconds: '3600' // Subtract 1 hour
+        });
+        console.log('Time subtraction result:', response);
+    } catch (error) {
+        console.error('Error managing subscription time:', error);
+    }
+}
+
+// Example 8: Delete subscription
+async function deleteUserSubscription() {
+    try {
+        // Delete a user's subscription
+        console.log('Deleting user subscription...');
+        const response = await keyAuth.deleteSubscription({
+            user: 'username',
+            sub: 'subscription-name'
+        });
+        console.log('Subscription deletion result:', response);
+    } catch (error) {
+        console.error('Error deleting subscription:', error);
+    }
+}
+
+// Example 9: Blacklist Management
+async function manageBlacklist() {
+    try {
+        // Blacklist an IP
+        console.log('Blacklisting IP...');
+        let response = await keyAuth.addToBlacklist({
+            ip: '1.2.3.4',
+            reason: 'Suspicious activity'
+        });
+        console.log('IP blacklist result:', response);
+
+        // Remove IP from blacklist
+        console.log('Removing IP from blacklist...');
+        response = await keyAuth.removeFromBlacklist({
+            data: '1.2.3.4',
+            blacktype: 'IP'
+        });
+        console.log('IP removal result:', response);
+
+        // Blacklist a HWID
+        console.log('Blacklisting HWID...');
+        response = await keyAuth.addToBlacklist({
+            hwid: 'example-hwid-string',
+            reason: 'Multiple violations'
+        });
+        console.log('HWID blacklist result:', response);
+
+        // Remove HWID from blacklist
+        console.log('Removing HWID from blacklist...');
+        response = await keyAuth.removeFromBlacklist({
+            data: 'example-hwid-string',
+            blacktype: 'HWID'
+        });
+        console.log('HWID removal result:', response);
+
+        // Blacklist a region
+        console.log('Blacklisting region...');
+        response = await keyAuth.addToBlacklist({
+            region: 'example-region',
+            country: 'US',
+            reason: 'High fraud rate'
+        });
+        console.log('Region blacklist result:', response);
+
+        // Blacklist an ASN
+        console.log('Blacklisting ASN...');
+        response = await keyAuth.addToBlacklist({
+            asn: '12345',
+            reason: 'VPN/Proxy detected'
+        });
+        console.log('ASN blacklist result:', response);
+    } catch (error) {
+        console.error('Error managing blacklist:', error);
+    }
+}
+
 // Run all examples
 async function runExamples() {
     console.log('Getting user information...');
@@ -128,6 +215,15 @@ async function runExamples() {
 
     console.log('\nManaging subscription...');
     await manageSubscription();
+
+    console.log('\nManaging subscription time...');
+    await manageSubscriptionTime();
+
+    console.log('\nDeleting user subscription...');
+    await deleteUserSubscription();
+
+    console.log('\nManaging blacklist...');
+    await manageBlacklist();
 }
 
 // Execute the examples

@@ -66,6 +66,33 @@ interface ExtendParams {
   activeOnly?: boolean;
 }
 
+interface SubtractTimeParams {
+  user: string;
+  sub: string;
+  seconds: string;
+}
+
+interface DeleteSubParams {
+  user: string;
+  sub: string;
+}
+
+interface BlacklistParams {
+  ip?: string;
+  hwid?: string;
+  region?: string;
+  country?: string;
+  asn?: string;
+  reason?: string;
+}
+
+type BlacklistType = 'IP' | 'HWID';
+
+interface RemoveFromBlacklistParams {
+  data: string;
+  blacktype: BlacklistType;
+}
+
 export class KeyAuthSeller {
   private readonly sellerKey: string;
   private readonly baseUrl = 'https://keyauth.win/api/seller/';
@@ -213,5 +240,30 @@ export class KeyAuthSeller {
   // Unpause a subscription
   async unpauseSubscription(subscription: string): Promise<KeyAuthResponse> {
     return this.makeRequest('unpausesub', { subscription });
+  }
+
+  // Subtract time from user's subscription
+  async subtractTime({ user, sub, seconds }: SubtractTimeParams): Promise<KeyAuthResponse> {
+    return this.makeRequest('subtract', { user, sub, seconds });
+  }
+
+  // Delete user's subscription
+  async deleteSubscription({ user, sub }: DeleteSubParams): Promise<KeyAuthResponse> {
+    return this.makeRequest('delsub', { user, sub });
+  }
+
+  // Add to blacklist (IP, HWID, region, country, or ASN)
+  async addToBlacklist(params: BlacklistParams): Promise<KeyAuthResponse> {
+    // Filter out undefined parameters
+    const blacklistParams = Object.fromEntries(
+      Object.entries(params).filter(([_, value]) => value !== undefined)
+    );
+    
+    return this.makeRequest('black', blacklistParams);
+  }
+
+  // Remove from blacklist (IP or HWID)
+  async removeFromBlacklist({ data, blacktype }: RemoveFromBlacklistParams): Promise<KeyAuthResponse> {
+    return this.makeRequest('delblack', { data, blacktype });
   }
 } 
