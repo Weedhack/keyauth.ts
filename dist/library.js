@@ -142,7 +142,12 @@ class KeyAuthSeller {
     }
     // Remove from blacklist (IP or HWID)
     async removeFromBlacklist({ data, blacktype }) {
-        return this.makeRequest('delblack', { data, blacktype });
+        // Convert blacktype to lowercase to match API expectations
+        const type = 'delblack';
+        return this.makeRequest(type, {
+            data,
+            blacktype: blacktype.toLowerCase() // API might expect lowercase
+        });
     }
 }
 exports.KeyAuthSeller = KeyAuthSeller;

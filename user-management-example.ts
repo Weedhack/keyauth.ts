@@ -155,7 +155,7 @@ async function manageBlacklist() {
         console.log('Removing IP from blacklist...');
         response = await keyAuth.removeFromBlacklist({
             data: '1.2.3.4',
-            blacktype: 'IP'
+            blacktype: 'IP'  // Must be 'IP' or 'HWID'
         });
         console.log('IP removal result:', response);
 
@@ -171,7 +171,7 @@ async function manageBlacklist() {
         console.log('Removing HWID from blacklist...');
         response = await keyAuth.removeFromBlacklist({
             data: 'example-hwid-string',
-            blacktype: 'HWID'
+            blacktype: 'HWID'  // Must be 'IP' or 'HWID'
         });
         console.log('HWID removal result:', response);
 
@@ -193,6 +193,10 @@ async function manageBlacklist() {
         console.log('ASN blacklist result:', response);
     } catch (error) {
         console.error('Error managing blacklist:', error);
+        // Log more details about the error
+        if (error instanceof Error) {
+            console.error('Error details:', error.message);
+        }
     }
 }
 
