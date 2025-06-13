@@ -93,6 +93,33 @@ interface RemoveFromBlacklistParams {
   blacktype: BlacklistType;
 }
 
+interface SetBalanceParams {
+  username: string;
+  day?: string;
+  week?: string;
+  month?: string;
+  threemonth?: string;
+  sixmonth?: string;
+  lifetime?: string;
+}
+
+interface AddResellerAccountParams {
+  user: string;
+  pass: string;
+  keylevels: string;
+  email: string;
+  perms?: string;
+}
+
+interface DeleteAccountParams {
+  user: string;
+}
+
+interface GetResellerBalanceParams {
+  username: string;
+  appname: string;
+}
+
 export class KeyAuthSeller {
   private readonly sellerKey: string;
   private readonly baseUrl = 'https://keyauth.win/api/seller/';
@@ -270,5 +297,44 @@ export class KeyAuthSeller {
       data,
       blacktype: blacktype.toLowerCase()  // API might expect lowercase
     });
+  }
+
+  // Set user balance
+  async setBalance({ username, day, week, month, threemonth, sixmonth, lifetime }: SetBalanceParams): Promise<KeyAuthResponse> {
+    return this.makeRequest('setbalance', {
+      username,
+      day,
+      week,
+      month,
+      threemonth,
+      sixmonth,
+      lifetime
+    });
+  }
+
+  // Add a new reseller account
+  async addResellerAccount({ user, pass, keylevels, email, perms }: AddResellerAccountParams): Promise<KeyAuthResponse> {
+    return this.makeRequest('addAccount', {
+      role: 'Reseller', // Hardcoded to Reseller as requested
+      user,
+      pass,
+      keylevels,
+      email
+    });
+  }
+
+  // Delete a reseller or manager account
+  async deleteAccount({ user }: DeleteAccountParams): Promise<KeyAuthResponse> {
+    return this.makeRequest('deleteAccount', { user });
+  }
+
+  // Fetch all resellers and managers
+  async fetchTeam(): Promise<KeyAuthResponse> {
+    return this.makeRequest('fetchteam');
+  }
+
+  // Get reseller balance
+  async getResellerBalance({ username, appname }: GetResellerBalanceParams): Promise<KeyAuthResponse> {
+    return this.makeRequest('getbalance', { username, appname });
   }
 } 

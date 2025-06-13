@@ -75,6 +75,29 @@ interface RemoveFromBlacklistParams {
     data: string;
     blacktype: BlacklistType;
 }
+interface SetBalanceParams {
+    username: string;
+    day?: string;
+    week?: string;
+    month?: string;
+    threemonth?: string;
+    sixmonth?: string;
+    lifetime?: string;
+}
+interface AddResellerAccountParams {
+    user: string;
+    pass: string;
+    keylevels: string;
+    email: string;
+    perms?: string;
+}
+interface DeleteAccountParams {
+    user: string;
+}
+interface GetResellerBalanceParams {
+    username: string;
+    appname: string;
+}
 export declare class KeyAuthSeller {
     private readonly sellerKey;
     private readonly baseUrl;
@@ -109,5 +132,10 @@ export declare class KeyAuthSeller {
     deleteSubscription({ user, sub }: DeleteSubParams): Promise<KeyAuthResponse>;
     addToBlacklist(params: BlacklistParams): Promise<KeyAuthResponse>;
     removeFromBlacklist({ data, blacktype }: RemoveFromBlacklistParams): Promise<KeyAuthResponse>;
+    setBalance({ username, day, week, month, threemonth, sixmonth, lifetime }: SetBalanceParams): Promise<KeyAuthResponse>;
+    addResellerAccount({ user, pass, keylevels, email, perms }: AddResellerAccountParams): Promise<KeyAuthResponse>;
+    deleteAccount({ user }: DeleteAccountParams): Promise<KeyAuthResponse>;
+    fetchTeam(): Promise<KeyAuthResponse>;
+    getResellerBalance({ username, appname }: GetResellerBalanceParams): Promise<KeyAuthResponse>;
 }
 export {};

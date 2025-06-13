@@ -1,19 +1,14 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.KeyAuthSeller = void 0;
-const axios_1 = __importDefault(require("axios"));
-class KeyAuthSeller {
+import axios from 'axios';
+export class KeyAuthSeller {
+    sellerKey;
+    baseUrl = 'https://keyauth.win/api/seller/';
     constructor(sellerKey) {
-        this.baseUrl = 'https://keyauth.win/api/seller/';
         this.sellerKey = sellerKey;
     }
     async makeRequest(type, params = {}) {
         try {
             const queryParams = new URLSearchParams({ sellerkey: this.sellerKey, type, ...params });
-            const response = await axios_1.default.get(`${this.baseUrl}?${queryParams}`);
+            const response = await axios.get(`${this.baseUrl}?${queryParams}`);
             return response.data;
         }
         catch (error) {
@@ -149,5 +144,38 @@ class KeyAuthSeller {
             blacktype: blacktype.toLowerCase() // API might expect lowercase
         });
     }
+    // Set user balance
+    async setBalance({ username, day, week, month, threemonth, sixmonth, lifetime }) {
+        return this.makeRequest('setbalance', {
+            username,
+            day,
+            week,
+            month,
+            threemonth,
+            sixmonth,
+            lifetime
+        });
+    }
+    // Add a new reseller account
+    async addResellerAccount({ user, pass, keylevels, email, perms }) {
+        return this.makeRequest('addAccount', {
+            role: 'Reseller', // Hardcoded to Reseller as requested
+            user,
+            pass,
+            keylevels,
+            email
+        });
+    }
+    // Delete a reseller or manager account
+    async deleteAccount({ user }) {
+        return this.makeRequest('deleteAccount', { user });
+    }
+    // Fetch all resellers and managers
+    async fetchTeam() {
+        return this.makeRequest('fetchteam');
+    }
+    // Get reseller balance
+    async getResellerBalance({ username, appname }) {
+        return this.makeRequest('getbalance', { username, appname });
+    }
 }
-exports.KeyAuthSeller = KeyAuthSeller;

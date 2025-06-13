@@ -2,8 +2,16 @@
   "name": "keyauth-seller",
   "version": "1.1.2",
   "description": "TypeScript library for KeyAuth seller API",
-  "main": "dist/library.js",
-  "types": "dist/library.d.ts",
+  "main": "./dist/library.js",
+  "module": "./dist/library.js",
+  "types": "./dist/library.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/library.js",
+      "types": "./dist/library.d.ts"
+    }
+  },
   "files": [
     "dist"
   ],
