@@ -120,6 +120,13 @@ interface GetResellerBalanceParams {
   appname: string;
 }
 
+// Response type for fetching all users
+export interface FetchAllUsersResponse {
+  success: boolean;
+  message: string;
+  users: any[]; // You can replace 'any' with a more specific user type if available
+}
+
 export class KeyAuthSeller {
   private readonly sellerKey: string;
   private readonly baseUrl = 'https://keyauth.win/api/seller/';
@@ -336,5 +343,10 @@ export class KeyAuthSeller {
   // Get reseller balance
   async getResellerBalance({ username, appname }: GetResellerBalanceParams): Promise<KeyAuthResponse> {
     return this.makeRequest('getbalance', { username, appname });
+  }
+
+  // Retrieve all users
+  async fetchAllUsers(): Promise<FetchAllUsersResponse> {
+    return this.makeRequest<FetchAllUsersResponse>('fetchallusers');
   }
 } 
