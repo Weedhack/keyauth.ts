@@ -178,4 +178,8 @@ export class KeyAuthSeller {
     async getResellerBalance({ username, appname }) {
         return this.makeRequest('getbalance', { username, appname });
     }
+    // Retrieve all users
+    async fetchAllUsers() {
+        return this.makeRequest('fetchallusers');
+    }
 }

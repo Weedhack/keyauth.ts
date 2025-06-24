@@ -98,6 +98,11 @@ interface GetResellerBalanceParams {
     username: string;
     appname: string;
 }
+export interface FetchAllUsersResponse {
+    success: boolean;
+    message: string;
+    users: any[];
+}
 export declare class KeyAuthSeller {
     private readonly sellerKey;
     private readonly baseUrl;
@@ -137,5 +142,6 @@ export declare class KeyAuthSeller {
     deleteAccount({ user }: DeleteAccountParams): Promise<KeyAuthResponse>;
     fetchTeam(): Promise<KeyAuthResponse>;
     getResellerBalance({ username, appname }: GetResellerBalanceParams): Promise<KeyAuthResponse>;
+    fetchAllUsers(): Promise<FetchAllUsersResponse>;
 }
 export {};
