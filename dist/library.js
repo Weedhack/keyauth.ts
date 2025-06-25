@@ -182,4 +182,28 @@ export class KeyAuthSeller {
     async fetchAllUsers() {
         return this.makeRequest('fetchallusers');
     }
+    // Create a new global variable
+    async addGlobalVar({ name, data, authed }) {
+        return this.makeRequest('addvar', { name, data, authed: authed ? 1 : 0 });
+    }
+    // Delete a global variable
+    async deleteGlobalVar({ name }) {
+        return this.makeRequest('delvar', { name });
+    }
+    // Delete all global variables
+    async deleteAllGlobalVars() {
+        return this.makeRequest('delallvars');
+    }
+    // Edit a global variable
+    async editGlobalVar({ varid, data }) {
+        return this.makeRequest('editvar', { varid, data });
+    }
+    // Retrieve all global variables
+    async fetchAllGlobalVars() {
+        return this.makeRequest('fetchallvars');
+    }
+    // Retrieve an existing global variable
+    async retrieveGlobalVar({ name }) {
+        return this.makeRequest('retrvvar', { name });
+    }
 }

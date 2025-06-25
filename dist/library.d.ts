@@ -103,6 +103,31 @@ export interface FetchAllUsersResponse {
     message: string;
     users: any[];
 }
+export interface AddGlobalVarParams {
+    name: string;
+    data: string;
+    authed: boolean;
+}
+export interface DeleteGlobalVarParams {
+    name: string;
+}
+export interface EditGlobalVarParams {
+    varid: string;
+    data: string;
+}
+export interface FetchAllGlobalVarsResponse {
+    success: boolean;
+    message: string;
+    vars: any[];
+}
+export interface RetrieveGlobalVarParams {
+    name: string;
+}
+export interface RetrieveGlobalVarResponse {
+    success: boolean;
+    message: string;
+    var?: any;
+}
 export declare class KeyAuthSeller {
     private readonly sellerKey;
     private readonly baseUrl;
@@ -143,5 +168,11 @@ export declare class KeyAuthSeller {
     fetchTeam(): Promise<KeyAuthResponse>;
     getResellerBalance({ username, appname }: GetResellerBalanceParams): Promise<KeyAuthResponse>;
     fetchAllUsers(): Promise<FetchAllUsersResponse>;
+    addGlobalVar({ name, data, authed }: AddGlobalVarParams): Promise<KeyAuthResponse>;
+    deleteGlobalVar({ name }: DeleteGlobalVarParams): Promise<KeyAuthResponse>;
+    deleteAllGlobalVars(): Promise<KeyAuthResponse>;
+    editGlobalVar({ varid, data }: EditGlobalVarParams): Promise<KeyAuthResponse>;
+    fetchAllGlobalVars(): Promise<FetchAllGlobalVarsResponse>;
+    retrieveGlobalVar({ name }: RetrieveGlobalVarParams): Promise<RetrieveGlobalVarResponse>;
 }
 export {};
