@@ -127,6 +127,43 @@ export interface FetchAllUsersResponse {
   users: any[]; // You can replace 'any' with a more specific user type if available
 }
 
+// Parameters for creating a new global variable
+export interface AddGlobalVarParams {
+  name: string;
+  data: string;
+  authed: boolean;
+}
+
+// Parameters for deleting a global variable
+export interface DeleteGlobalVarParams {
+  name: string;
+}
+
+// Parameters for editing a global variable
+export interface EditGlobalVarParams {
+  varid: string;
+  data: string;
+}
+
+// Response type for fetching all global variables
+export interface FetchAllGlobalVarsResponse {
+  success: boolean;
+  message: string;
+  vars: any[]; // You can replace 'any' with a more specific variable type if available
+}
+
+// Parameters for retrieving a global variable
+export interface RetrieveGlobalVarParams {
+  name: string;
+}
+
+// Response type for retrieving a global variable
+export interface RetrieveGlobalVarResponse {
+  success: boolean;
+  message: string;
+  var?: any; // You can replace 'any' with a more specific variable type if available
+}
+
 export class KeyAuthSeller {
   private readonly sellerKey: string;
   private readonly baseUrl = 'https://keyauth.win/api/seller/';
@@ -348,5 +385,35 @@ export class KeyAuthSeller {
   // Retrieve all users
   async fetchAllUsers(): Promise<FetchAllUsersResponse> {
     return this.makeRequest<FetchAllUsersResponse>('fetchallusers');
+  }
+
+  // Create a new global variable
+  async addGlobalVar({ name, data, authed }: AddGlobalVarParams): Promise<KeyAuthResponse> {
+    return this.makeRequest('addvar', { name, data, authed: authed ? 1 : 0 });
+  }
+
+  // Delete a global variable
+  async deleteGlobalVar({ name }: DeleteGlobalVarParams): Promise<KeyAuthResponse> {
+    return this.makeRequest('delvar', { name });
+  }
+
+  // Delete all global variables
+  async deleteAllGlobalVars(): Promise<KeyAuthResponse> {
+    return this.makeRequest('delallvars');
+  }
+
+  // Edit a global variable
+  async editGlobalVar({ varid, data }: EditGlobalVarParams): Promise<KeyAuthResponse> {
+    return this.makeRequest('editvar', { varid, data });
+  }
+
+  // Retrieve all global variables
+  async fetchAllGlobalVars(): Promise<FetchAllGlobalVarsResponse> {
+    return this.makeRequest<FetchAllGlobalVarsResponse>('fetchallvars');
+  }
+
+  // Retrieve an existing global variable
+  async retrieveGlobalVar({ name }: RetrieveGlobalVarParams): Promise<RetrieveGlobalVarResponse> {
+    return this.makeRequest<RetrieveGlobalVarResponse>('retrvvar', { name });
   }
 } 
